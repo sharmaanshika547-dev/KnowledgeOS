@@ -1,4 +1,5 @@
 # KnowledgeOS
+<<<<<<< HEAD
 
 KnowledgeOS is a personal knowledge management backend built with FastAPI.
 
@@ -141,3 +142,5 @@ This project is being built to learn:
 * Cloud Deployment
 
 ---
+=======
+AI-powered knowledge management platform built while learning backend engineering, databases, cloud, and AI systems.
