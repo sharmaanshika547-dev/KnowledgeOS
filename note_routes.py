@@ -32,17 +32,14 @@ def create_note(note: NoteCreate):
     """
     global next_id
 
-    new_note = {
-        "id": next_id,
+    new_note = Note(
         "title": note.title,
         "content": note.content
-    }
+    )
 
-    notes_db.append(new_note)
-    next_id += 1
-
-    return new_note
-
+    db.add(new_note)
+    db.commit()
+    db.refresh(new_note)
 
 @router.put("/{note_id}", response_model=NoteResponse)
 def update_note(note_id: int, note_data: NoteUpdate):
