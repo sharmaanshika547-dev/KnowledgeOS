@@ -1,5 +1,8 @@
-from fastapi import APIRouter, HTTPException
+from sqlalchemy.orm import Session
+from app.database.db import get_db
+from fastapi import APIRouter, HTTPException,Depends
 from typing import List
+from app.models.note import Note
 
 from app.schemas.note import (
     NoteCreate,
@@ -12,34 +15,27 @@ router = APIRouter(
     tags=["Notes"]
 )
 
-# Temporary in-memory storage
-notes_db: List[dict] = []
-next_id = 1
-
 
 @router.get("/", response_model=List[NoteResponse])
-def get_all_notes():
-    """
-    Return all notes.
-    """
-    return notes_db
-
-
+def get_all_notes(
+     db: Session = Depends(get_db)
+):
+     return db.query(Note).all()
+     return notes
 @router.post("/", response_model=NoteResponse, status_code=201)
-def create_note(note: NoteCreate):
-    """
-    Create a new note.
-    """
-    global next_id
+def create_note(note: NoteCreate,
+    db:session = Depends(get_db):
+    
 
     new_note = Note(
-        "title": note.title,
-        "content": note.content
+        title: note.title,
+        content: note.content
     )
 
     db.add(new_note)
     db.commit()
     db.refresh(new_note)
+    return new_note
 
 @router.put("/{note_id}", response_model=NoteResponse)
 def update_note(note_id: int, note_data: NoteUpdate):
