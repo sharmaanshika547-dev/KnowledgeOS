@@ -69,3 +69,23 @@ Repository → Fetches
 
 Database → Stores
 - Persistent data
+
+## July 27
+
+### Completed
+- Studied FastAPI request lifecycle in depth.
+- Understood SQLAlchemy Session lifecycle.
+- Learned how Depends(get_db) provides a request-scoped session.
+- Learned why yield is used instead of return.
+- Understood Session vs Transaction.
+- Learned Dirty Checking and Identity Map.
+
+### Key Takeaways
+- One HTTP request gets one SQLAlchemy Session.
+- Session tracks ORM objects and generates SQL during commit().
+- Identity Map ensures one Python object per database row within a Session.
+
+### Next
+- Unit of Work
+- flush() vs commit()
+- rollback()
