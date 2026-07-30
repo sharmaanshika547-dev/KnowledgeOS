@@ -20,8 +20,6 @@ class NoteRepository:
         )
 
         db.add(note_model)
-        db.commit()
-        db.refresh(note_model)
 
         return note_model
 

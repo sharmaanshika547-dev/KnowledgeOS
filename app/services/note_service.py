@@ -14,11 +14,24 @@ class NoteService:
         user_id: int,
     ) -> Note:
 
-        return note_repository.create_note(
-            db=db,
-            note_data=note_data,
-            user_id=user_id,
-        )
+        try:
+            note = note_repository.create_note(
+                db=db,
+                note_data=note_data,
+                user_id=user_id,
+            )
+
+            db.flush()
+
+            db.commit()
+
+            db.refresh(note)
+
+            return note
+
+        except Exception:
+            db.rollback()
+            raise
 
     def get_note_by_id(
         self,
@@ -55,11 +68,22 @@ class NoteService:
             note_id=note_id,
         )
 
-        return note_repository.update_note(
-            db=db,
-            note_model=note,
-            note_data=note_data,
-        )
+        try:
+            updated_note = note_repository.update_note(
+                db=db,
+                note_model=note,
+                note_data=note_data,
+            )
+
+            db.commit()
+
+            db.refresh(updated_note)
+
+            return updated_note
+
+        except Exception:
+            db.rollback()
+            raise
 
     def delete_note(
         self,
@@ -72,10 +96,17 @@ class NoteService:
             note_id=note_id,
         )
 
-        note_repository.delete_note(
-            db=db,
-            note_model=note,
-        )
+        try:
+            note_repository.delete_note(
+                db=db,
+                note_model=note,
+            )
+
+            db.commit()
+
+        except Exception:
+            db.rollback()
+            raise
 
 
 note_service = NoteService()
