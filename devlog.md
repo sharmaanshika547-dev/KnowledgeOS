@@ -89,3 +89,23 @@ Database → Stores
 - Unit of Work
 - flush() vs commit()
 - rollback()
+
+## Date: 2026-07-31
+
+### Completed
+- Investigated Alembic migration failure.
+- Learned PostgreSQL authentication vs authorization.
+- Explored PostgreSQL roles, database ownership, and schema ownership.
+- Fixed database ownership mismatch.
+- Successfully generated Alembic migration.
+
+### Problems Faced
+- `permission denied for schema public`
+- PostgreSQL required password authentication (`scram-sha-256`) for local connections.
+- Application user did not own the target database.
+
+### Key Learnings
+- Alembic stores migration history in the `alembic_version` table.
+- Database ownership affects schema permissions.
+- Authentication verifies identity; authorization controls allowed actions.
+- Always investigate before granting permissions.
