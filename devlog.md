@@ -109,3 +109,29 @@ Database → Stores
 - Database ownership affects schema permissions.
 - Authentication verifies identity; authorization controls allowed actions.
 - Always investigate before granting permissions.
+## Authentication Foundation
+
+### Completed
+- Created `app/core/` package.
+- Added `security.py` for authentication utilities.
+- Added `config.py` using Pydantic Settings.
+- Configured `.env` for application secrets.
+- Added `.env` to `.gitignore`.
+- Installed:
+  - passlib[bcrypt]
+  - python-jose[cryptography]
+  - pydantic-settings
+  - python-dotenv
+
+### Learned
+- Difference between hashing and encryption.
+- Why bcrypt is preferred for password storage.
+- Role of salts in password hashing.
+- JWT fundamentals (Header, Payload, Signature).
+- Why configuration should be separated from business logic.
+- Why environment variables are used in production.
+
+### Next
+- Implement JWT creation.
+- Implement JWT verification.
+- Build authentication service and login endpoint.
